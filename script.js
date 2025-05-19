@@ -6,7 +6,6 @@
  * Este script controla todas as funcionalidades interativas do site de portfólio:
  * - Sidebar com informações de contato
  * - Sistema de filtragem de projetos do portfólio
- * - Modal para exibição de depoimentos
  * - Navegação entre as diferentes seções
  * - Validação do formulário de contato
  * - Sistema de alteração de idioma
@@ -15,6 +14,11 @@
 // Language system
 const i18n = {
     en: {
+        // Meta tags
+        "meta.description": "Eduardo Souza - Web Developer Portfolio",
+        "og.title": "Eduardo Souza - Web Developer",
+        "og.description": "Portfolio showcasing web development projects and skills",
+
         // Nav
         "nav.about": "About",
         "nav.resume": "Resume",
@@ -34,10 +38,8 @@ const i18n = {
         // About Section
         "about.title": "About me",
         "about.description.p1": "I am a web developer with a solid background in Systems Analysis and Development, specialized in creating modern, responsive digital solutions focused on user experience. I have experience with technologies such as React, Next.js, Django, WordPress, and Docker, working on both front-end and back-end.",
-        "about.description.p2": "I always strive to understand the client's real needs to deliver functional, efficient projects that are well thought out in every detail. With knowledge in UX/UI design, I can combine programming with usability, ensuring that the end result is intuitive and effective. I'm always learning and keeping up with trends to offer the best in web technology.",
-        "service.title": "Featured Projects",
-        "testimonials.title": "Testimonials",
-        "clients.title": "Clients",
+        "about.description.p2": "I always strive to understand the client's real needs to deliver functional, efficient projects that are well thought out in every detail. With knowledge in UX/UI design, I can combine programming with usability, ensuring that the end result is intuitive and effective. I'm always learning and keeping up with trends to offer the best in web technology.",        "service.title": "Featured Projects",
+        // "clients.title": "Clients", // Comentado temporariamente
         "resume.title": "Resume",
         "contact.title": "Contact",
         "contact.form.title": "Contact Form",
@@ -66,13 +68,31 @@ const i18n = {
         "experience.title.wordpress": "WordPress Developer",
         "experience.description.wordpress": "Development of custom themes and plugins for WordPress, ensuring optimized and responsive websites for various clients.",
         "experience.title.python": "Python Developer",
-        "experience.description.python": "Proficient in creating development environments with Docker, ensuring scalability and security for developed applications.",
-
+        "experience.description.python": "Proficient in creating development environments with Docker, ensuring scalability and security for developed applications.",        // Skills Section
+        "skills.title": "My Skills",
+        "skills.webdev": "Web Development",
+        "skills.wordpress": "WordPress",
+        "skills.python": "Python",
+        "skills.experience": "years of experience",
+        
         // Project Categories
-        "project.category.webdev": "Web Development"
-    },
-    pt: {
-        // Nav
+        "project.category.webdev": "Web Development",
+        "project.category.webdesign": "Web Design",
+        "project.category.applications": "Applications",
+
+        // Project Titles
+        "project.title.finance": "Finance",
+        "project.title.orizon": "Orizon",
+        "project.title.fundo": "Fundo",
+        "project.title.brawlhalla": "Brawlhalla",
+        "project.title.dsm": "DSM",
+        "project.title.metaspark": "Metaspark",
+        "project.title.summary": "Summary",
+        "project.title.taskmanager": "Task Manager",
+        "project.title.arrival": "Arrival",        // Project Categories
+        "project.category.webdev": "Web Development",
+        "project.category.webdesign": "Web Design",
+        "project.category.applications": "Applications",
         "nav.about": "Sobre",
         "nav.resume": "Currículo",
         "nav.portfolio": "Portfólio",
@@ -91,10 +111,8 @@ const i18n = {
         // About Section
         "about.title": "Sobre mim",
         "about.description.p1": "Sou desenvolvedor web com sólida formação em Análise e Desenvolvimento de Sistemas, especializado em criar soluções digitais modernas, responsivas e com foco na experiência do usuário. Tenho experiência com tecnologias como React, Next.js, Django, WordPress e Docker, atuando tanto no front-end quanto no back-end.",
-        "about.description.p2": "Busco sempre entender a real necessidade do cliente para entregar projetos funcionais, eficientes e bem pensados em cada detalhe. Com conhecimentos em UX/UI design, consigo aliar programação com usabilidade, garantindo que o resultado final seja intuitivo e eficaz. Estou sempre aprendendo e acompanhando tendências para oferecer o melhor da tecnologia web.",
-        "service.title": "Projetos em Destaque",
-        "testimonials.title": "Depoimentos",
-        "clients.title": "Clientes",
+        "about.description.p2": "Busco sempre entender a real necessidade do cliente para entregar projetos funcionais, eficientes e bem pensados em cada detalhe. Com conhecimentos em UX/UI design, consigo aliar programação com usabilidade, garantindo que o resultado final seja intuitivo e eficaz. Estou sempre aprendendo e acompanhando tendências para oferecer o melhor da tecnologia web.",        "service.title": "Projetos em Destaque",
+        // "clients.title": "Clientes", // Comentado temporariamente
         "resume.title": "Currículo",
         "contact.title": "Contato",
         "contact.form.title": "Formulário de Contato",
@@ -123,20 +141,53 @@ const i18n = {
         "experience.title.wordpress": "Desenvolvedor WordPress",
         "experience.description.wordpress": "Desenvolvimento de temas personalizados e plugins para WordPress, garantindo sites otimizados e responsivos para diversos clientes.",
         "experience.title.python": "Desenvolvedor Python",
-        "experience.description.python": "Tenho domínio na criação de ambientes de desenvolvimento com Docker, o que garante escalabilidade e segurança para as aplicações desenvolvidas.",
-
+        "experience.description.python": "Tenho domínio na criação de ambientes de desenvolvimento com Docker, o que garante escalabilidade e segurança para as aplicações desenvolvidas.",        // Skills Section
+        "skills.title": "Minhas Habilidades",
+        "skills.webdev": "Desenvolvimento Web",
+        "skills.wordpress": "WordPress",
+        "skills.python": "Python",
+        "skills.experience": "anos de experiência",
+        
         // Project Categories
-        "project.category.webdev": "Desenvolvimento Web"
+        "project.category.webdev": "Desenvolvimento Web",
+        "project.category.webdesign": "Web Design",
+        "project.category.applications": "Aplicações",
+
+        // Project Titles
+        "project.title.finance": "Finanças",
+        "project.title.orizon": "Orizon",
+        "project.title.fundo": "Fundo",
+        "project.title.brawlhalla": "Brawlhalla",
+        "project.title.dsm": "DSM",
+        "project.title.metaspark": "Metaspark",
+        "project.title.summary": "Resumo",
+        "project.title.taskmanager": "Gerenciador de Tarefas",
+        "project.title.arrival": "Chegada",
+
+        // Testimonials
+        "testimonial.title.daniel": "Daniel Lewis",
+        "testimonial.text.daniel": "Richard foi contratado para criar uma identidade corporativa. É moderna, limpa e com um design bonito que recebeu muitos elogios de colegas e visitantes. Ficamos muito satisfeitos com o trabalho realizado. Ele tem muita experiência e está muito preocupado com as necessidades do cliente.",
+        "testimonial.title.jessica": "Jessica Miller",
+        "testimonial.text.jessica": "Trabalhar com Richard tem sido um prazer absoluto. Fiquei impressionado com sua atenção aos detalhes, suas habilidades de web design e sua abordagem profissional em relação aos nossos prazos e processos.",
+        "testimonial.title.emily": "Emily Evans",
+        "testimonial.text.emily": "Não poderia estar mais feliz com o site que Richard criou para nós. Sua atenção aos detalhes e criatividade é incomparável. Nossos clientes frequentemente elogiam o design, e isso melhorou significativamente a imagem da nossa marca.",
+        "testimonial.title.henry": "Henry Williams",
+        "testimonial.text.henry": "Eu estava sobrecarregado com a ideia de redesenhar minha loja online, mas Richard tornou o processo perfeito. O site não é apenas visualmente atraente, mas também otimizado para conversões. Vi um aumento de 50% no tráfego desde o lançamento!"
     }
 };
 
-let currentLanguage = 'pt'; // Default language
+let currentLanguage = localStorage.getItem('language') || 'pt'; // Default language
 
-function updateTexts() {    // Update all elements with data-translate attribute
+function updateTexts() {
+    // Update all elements with data-translate attribute
     document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
         if (i18n[currentLanguage][key]) {
-            element.textContent = i18n[currentLanguage][key];
+            if (element.tagName.toLowerCase() === 'meta') {
+                element.setAttribute('content', i18n[currentLanguage][key]);
+            } else {
+                element.textContent = i18n[currentLanguage][key];
+            }
         }
     });
 
@@ -154,13 +205,25 @@ const languageBtn = document.querySelector('[data-language-btn]');
 if (languageBtn) {
     languageBtn.addEventListener('click', function() {
         currentLanguage = currentLanguage === 'pt' ? 'en' : 'pt';
+        localStorage.setItem('language', currentLanguage);
         document.documentElement.lang = currentLanguage;
+        
+        // Atualizar todos os textos
         updateTexts();
+        updateSidebarTexts();
+        updateNavigationTexts();
+        updateSectionTitles();
+        updateFilterCategories();
+        updateContactForm();
+        
         // Update button text
         const langSpan = this.querySelector('span');
         if (langSpan) {
             langSpan.textContent = i18n[currentLanguage]['profile.language'];
         }
+
+        // Atualizar URLs do Open Graph e Twitter Cards se existirem
+        updateMetaTags();
     });
 }
 
@@ -182,38 +245,6 @@ if (sidebarBtn) {
         }
     });
 }
-
-//Activating Modal-testimonial
-
-const testimonialsItem = document.querySelectorAll('[data-testimonials-item]');
-const modalContainer = document.querySelector('[data-modal-container]');
-const modalCloseBtn = document.querySelector('[data-modal-close-btn]');
-const overlay = document.querySelector('[data-overlay]');
-
-const modalImg = document.querySelector('[data-modal-img]');
-const modalTitle = document.querySelector('[data-modal-title]');
-const modalText = document.querySelector('[data-modal-text]');
-
-const testimonialsModalFunc = function () {
-    modalContainer.classList.toggle('active');
-    overlay.classList.toggle('active');
-}
-
-for (let i = 0; i < testimonialsItem.length; i++) {
-    testimonialsItem[i].addEventListener('click', function () {
-        modalImg.src = this.querySelector('[data-testimonials-avatar]').src;
-        modalImg.alt = this.querySelector('[data-testimonials-avatar]').alt;
-        modalTitle.innerHTML = this.querySelector('[data-testimonials-title]').innerHTML;
-        modalText.innerHTML = this.querySelector('[data-testimonials-text]').innerHTML;
-
-        testimonialsModalFunc();
-    })
-}
-
-//Activating close button in modal-testimonial
-
-modalCloseBtn.addEventListener('click', testimonialsModalFunc);
-overlay.addEventListener('click', testimonialsModalFunc);
 
 //Activating Filter Select and filtering options
 
@@ -420,10 +451,8 @@ const translations = {
             'resume': 'Currículo',
             'portfolio': 'Portfólio',
             'blog': 'Blog',
-            'contact': 'Contato',
-            'services': 'Projetos em Destaque',
-            'testimonials': 'Depoimentos',
-            'clients': 'Clientes',
+            'contact': 'Contato',            'services': 'Projetos em Destaque',
+            // 'clients': 'Clientes', // Comentado temporariamente
             'education': 'Formação',
             'experience': 'Experiência Profissional',
             'skills': 'Minhas Habilidades',
@@ -434,10 +463,8 @@ const translations = {
             'resume': 'Resume',
             'portfolio': 'Portfolio',
             'blog': 'Blog',
-            'contact': 'Contact',
-            'services': 'Featured Projects',
-            'testimonials': 'Testimonials',
-            'clients': 'Clients',
+            'contact': 'Contact',            'services': 'Featured Projects',
+            // 'clients': 'Clients', // Comentado temporariamente
             'education': 'Education',
             'experience': 'Experience',
             'skills': 'My Skills',
@@ -482,6 +509,7 @@ const translations = {
 function toggleLanguage() {
     // Alternar idioma
     currentLang.value = currentLang.value === 'pt' ? 'en' : 'pt';
+    currentLanguage = currentLang.value; // Sincronizar as duas variáveis de idioma
     
     // Atualizar texto do botão de idioma
     const languageBtn = document.querySelector('#language-toggle span');
@@ -554,12 +582,9 @@ function updateSectionTitles() {
 
     
     // Título da seção Contact/Contato
-    updateTitleBySelector('.contact .article-title', 'contact');
-    
-    // Títulos de subseções
+    updateTitleBySelector('.contact .article-title', 'contact');    // Títulos de subseções
     updateTitleBySelector('.service-title', 'services');
-    updateTitleBySelector('.testimonials-title', 'testimonials');
-    updateTitleBySelector('.clients-title', 'clients');
+    // updateTitleBySelector('.clients-title', 'clients'); // Comentado temporariamente
     updateTitleBySelector('.timeline .h3:first-of-type', 'education');
     updateTitleBySelector('.timeline .h3:nth-of-type(2)', 'experience');
     updateTitleBySelector('.skills-title', 'skills');
@@ -651,6 +676,86 @@ function updateContactForm() {
     if (submitBtn) {
         submitBtn.textContent = translations.contactForm[currentLang.value].send;
     }
+}
+
+// Função para atualizar meta tags
+function updateMetaTags() {
+    // Atualizar meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+        metaDescription.setAttribute('content', i18n[currentLanguage]['meta.description']);
+    }
+
+    // Atualizar Open Graph tags
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) {
+        ogTitle.setAttribute('content', i18n[currentLanguage]['og.title']);
+    }
+
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) {
+        ogDescription.setAttribute('content', i18n[currentLanguage]['og.description']);
+    }
+}
+
+// Função para traduzir datas
+function formatDate(date, lang) {
+    return new Intl.DateTimeFormat(lang === 'pt' ? 'pt-BR' : 'en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }).format(new Date(date));
+}
+
+// Função para traduzir números
+function formatNumber(number, lang) {
+    return new Intl.NumberFormat(lang === 'pt' ? 'pt-BR' : 'en-US').format(number);
+}
+
+// Inicializar traduções quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', () => {
+    // Definir idioma inicial
+    document.documentElement.lang = currentLanguage;
+    
+    // Atualizar todos os textos
+    updateTexts();
+    updateSidebarTexts();
+    updateNavigationTexts();
+    updateSectionTitles();
+    updateFilterCategories();
+    updateContactForm();
+    updateMetaTags();
+    
+    // Atualizar datas no portfólio
+    document.querySelectorAll('[data-date]').forEach(element => {
+        const date = element.getAttribute('data-date');
+        if (date) {
+            element.textContent = formatDate(date, currentLanguage);
+        }
+    });
+    
+    // Atualizar números formatados
+    document.querySelectorAll('[data-number]').forEach(element => {
+        const number = element.getAttribute('data-number');
+        if (number) {
+            element.textContent = formatNumber(number, currentLanguage);
+        }
+    });
+});
+
+// Função para obter texto traduzido
+function getTranslation(key, lang = currentLanguage) {
+    return i18n[lang][key] || key;
+}
+
+// Função para adicionar novas traduções dinamicamente
+function addTranslation(key, translations) {
+    Object.keys(translations).forEach(lang => {
+        if (!i18n[lang]) {
+            i18n[lang] = {};
+        }
+        i18n[lang][key] = translations[key];
+    });
 }
 
 // Adicionar event listener ao botão de alternância de idioma
